@@ -1,6 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import '@fontsource/sora';
-import type { AppProps } from 'next/app';
 import React, { useRef } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -11,7 +10,8 @@ import Fonts from '../Fonts';
 import { store } from '../store';
 import theme from '../theme';
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
+// TODO: Investigate why failing when using AppProps type
+const MyApp: React.FC<any> = ({ Component, pageProps }) => {
   const queryClientRef = useRef<QueryClient>();
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
