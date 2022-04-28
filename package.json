@@ -5,18 +5,21 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "data-gen": "tsc generateCandidateData.ts --skipLibCheck true && node generateCandidateData.js && rm generateCandidateData.js"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
     "@chakra-ui/react": "^1.8.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@fontsource/sora": "^4.5.5",
     "@hookform/resolvers": "^2.8.8",
     "@reduxjs/toolkit": "^1.8.1",
     "framer-motion": "^6",
     "joi": "^17.6.0",
     "next": "12.0.9",
+    "phosphor-react": "^1.4.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.25.3",

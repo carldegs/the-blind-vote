@@ -1,10 +1,23 @@
-import { Button, Heading, HStack, Text, Wrap } from '@chakra-ui/react';
+import {
+  Button,
+  ListItem,
+  Spacer,
+  Text,
+  UnorderedList,
+} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
 import { CANDIDATES } from '../constants';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
-import Layout from '../layouts/Layout';
+import QuizLayout, {
+  QuizLayoutContent,
+  QuizLayoutDescription,
+  QuizLayoutHeader,
+  QuizLayoutNextButton,
+  QuizLayoutSubtitle,
+  QuizLayoutTitle,
+} from '../layouts/QuizLayout';
 import { setProfile } from '../modules/pollSlice';
 import Card from '../molecules/Card';
 import { ROUTES } from '../routes';
@@ -29,46 +42,69 @@ const Profile: React.FC = () => {
   );
 
   return (
-    <Layout center>
-      <Heading>Profile</Heading>
-      <Wrap>
-        {profiles.map(({ id, personalProfile, governmentProfile }) => (
-          <Card
-            key={`profile/${id}`}
-            onClick={() => dispatch(setProfile(id))}
-            selected={selectedProfile === id}
-          >
-            <Heading fontSize="lg">Personal Life</Heading>
-            {personalProfile.map((profile) => (
-              <Text key={`profile/${id}/personal/${profile}`}>{profile}</Text>
-            ))}
-
-            <Heading fontSize="lg">Government Life</Heading>
-            {governmentProfile.map((profile) => (
-              <Text key={`profile/${id}/government/${profile}`}>{profile}</Text>
-            ))}
-
-            {process.env.NODE_ENV === 'development' && <Text>{id}</Text>}
-          </Card>
-        ))}
-      </Wrap>
-      <HStack spacing={4}>
-        <Button
-          onClick={() => {
-            router.push(ROUTES.intro);
-          }}
-        >
-          Prev
-        </Button>
-        <Button
+    <QuizLayout>
+      <QuizLayoutHeader>
+        <QuizLayoutSubtitle>PART 1</QuizLayoutSubtitle>
+        <QuizLayoutTitle>Personal and Government Profile</QuizLayoutTitle>
+        <QuizLayoutDescription>
+          Choose the profile you like the most without seeing their names
+        </QuizLayoutDescription>
+        <QuizLayoutNextButton
+          isDisabled={!selectedProfile}
           onClick={() => {
             router.push(ROUTES.selectIssues);
           }}
-        >
-          Next
-        </Button>
-      </HStack>
-    </Layout>
+        />
+      </QuizLayoutHeader>
+      <QuizLayoutContent
+        overflow="auto"
+        overscrollBehavior="none"
+        flexDir={{ base: 'column', md: 'row' }}
+      >
+        {profiles.map(({ id, personalProfile, governmentProfile }) => (
+          <Card
+            key={`profile/${id}`}
+            selected={selectedProfile === id}
+            w={{ base: '90%', md: '350px' }}
+            minW="350px"
+            h="full"
+            maxH={{ base: '500px', md: '500px' }}
+          >
+            <Text fontSize="sm" letterSpacing="widest" fontWeight="bold">
+              PERSONAL LIFE
+            </Text>
+            <UnorderedList>
+              {personalProfile.map((profile) => (
+                <ListItem key={`profile/${id}/personal/${profile}`}>
+                  {profile}
+                </ListItem>
+              ))}
+            </UnorderedList>
+            <Text fontSize="sm" letterSpacing="widest" fontWeight="bold" mt={6}>
+              GOVERNMENT LIFE
+            </Text>
+            <UnorderedList>
+              {governmentProfile.map((profile) => (
+                <ListItem key={`profile/${id}/government/${profile}`}>
+                  {profile}
+                </ListItem>
+              ))}
+            </UnorderedList>
+
+            <Spacer />
+
+            <Button
+              isFullWidth
+              colorScheme={selectedProfile === id ? 'green' : 'blue'}
+              onClick={() => dispatch(setProfile(id))}
+              mt={4}
+            >
+              {selectedProfile === id ? 'SELECTED' : 'SELECT'}
+            </Button>
+          </Card>
+        ))}
+      </QuizLayoutContent>
+    </QuizLayout>
   );
 };
 

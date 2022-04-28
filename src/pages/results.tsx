@@ -9,16 +9,32 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 import { CANDIDATES, ISSUE_TITLE } from '../constants';
-import useResults from '../hooks/useResults';
+import { useAppSelector } from '../hooks/reduxHooks';
 import Layout from '../layouts/Layout';
+import {
+  selectResults,
+  selectTopResults,
+  selectValidResultsPage,
+} from '../modules/pollSelectors';
 import Card from '../molecules/Card';
+import { ROUTES } from '../routes';
 
 const Results: React.FC = () => {
-  const { results, topCandidates, topScore } = useResults();
+  const router = useRouter();
+  const results = useAppSelector(selectResults);
+  const { topCandidates, topScore } = useAppSelector(selectTopResults);
+  const isValid = useAppSelector(selectValidResultsPage);
 
-  console.log({ results });
+  useEffect(() => {
+    if (!isValid) {
+      router.push(ROUTES.home);
+    }
+  }, [isValid, router]);
+
   return (
     <Layout center>
       <Heading mb={2}>Results</Heading>
@@ -49,15 +65,17 @@ const Results: React.FC = () => {
         <Button>EMAIL</Button>
       </HStack>
 
-      <Divider />
+      <Divider my={8} />
 
       {results.map(({ id, score, selected }) => (
-        <Stack key={`rank/${id}`}>
+        <Stack key={`rank/${id}`} align="center">
           <HStack>
             <Text>{CANDIDATES[id].name}</Text>
             <Text>{score}</Text>
           </HStack>
-          {true && (
+          {(selected.profile ||
+            Object.values(selected.stands).some((stand) => stand) ||
+            selected.controversies) && (
             <Card>
               <HStack align="center" fontSize="sm" spacing={2}>
                 {selected.profile && <Text>Profile +1</Text>}

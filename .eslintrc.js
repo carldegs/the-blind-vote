@@ -19,6 +19,7 @@ module.exports = {
     'next',
     'next/core-web-vitals',
   ],
+  ignorePatterns: ['generateCandidateData.js'],
   rules: {
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
     'react/prop-types': 'off',

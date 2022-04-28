@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import '@fontsource/sora';
 import type { AppProps } from 'next/app';
 import React, { useRef } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -6,6 +7,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { Hydrate } from 'react-query/hydration';
 import { Provider } from 'react-redux';
 
+import Fonts from '../Fonts';
 import { store } from '../store';
 import theme from '../theme';
 
@@ -20,6 +22,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }: AppProps) => {
       <Provider store={store}>
         <Hydrate state={pageProps.dehydratedState}>
           <ChakraProvider theme={theme}>
+            <Fonts />
             <Component {...pageProps} />
           </ChakraProvider>
         </Hydrate>

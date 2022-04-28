@@ -1,22 +1,32 @@
-import { Box, BoxProps } from '@chakra-ui/react';
+import { Flex, FlexProps } from '@chakra-ui/react';
 
-interface CardProps extends BoxProps {
+interface CardProps extends FlexProps {
   selected?: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ children, selected, ...boxProps }) => {
+const Card: React.FC<CardProps & { colorScheme?: string }> = ({
+  children,
+  selected,
+  colorScheme = 'green',
+  ...otherProps
+}) => {
   return (
-    <Box
+    <Flex
       border="1px"
+      borderColor={selected ? `${colorScheme}.500` : 'gray.200'}
       borderRadius="md"
-      px={4}
-      py={2}
-      bg={selected && 'blue.200'}
+      px={6}
+      py={7}
+      mx={{ base: 0, md: 4 }}
+      my={{ base: 3, md: 0 }}
+      bg={selected && `${colorScheme}.200`}
       cursor="pointer"
-      {...boxProps}
+      boxShadow={selected ? 'xl' : 'md'}
+      flexDir="column"
+      {...otherProps}
     >
       {children}
-    </Box>
+    </Flex>
   );
 };
 

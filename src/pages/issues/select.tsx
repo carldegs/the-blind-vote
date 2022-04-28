@@ -1,10 +1,18 @@
-import { Heading, Button, Wrap, Text } from '@chakra-ui/react';
+import { Button, Text, Container, SimpleGrid, Flex } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { ISSUE_TITLE } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import Layout from '../../layouts/Layout';
+import QuizLayout, {
+  QuizLayoutNextButton,
+  QuizLayoutDescription,
+  QuizLayoutHeader,
+  QuizLayoutSubtitle,
+  QuizLayoutTitle,
+  QuizLayoutContent,
+} from '../../layouts/QuizLayout';
+import { selectValidSelectIssuePage } from '../../modules/pollSelectors';
 import {
   selectAllIssues,
   selectNoneIssues,
@@ -30,37 +38,93 @@ const SelectIssues: React.FC = () => {
     []
   );
 
+  const isValid = useAppSelector(selectValidSelectIssuePage);
+
+  useEffect(() => {
+    if (!isValid) {
+      router.push(ROUTES.home);
+    }
+  }, [isValid, router]);
+
   return (
-    <Layout center>
-      <Heading>Select Issues</Heading>
-      <Text>Select at least 3 issues</Text>
-      <Wrap>
-        {issues.map(({ key, value }) => (
-          <Card
-            key={`select-issue/${key}`}
-            onClick={() => dispatch(toggleSelectedIssues(key))}
-            selected={selectedIssues.includes(key)}
-          >
-            {value}
-          </Card>
-        ))}
-        <Card
-          onClick={() => dispatch(selectAllIssues())}
-          selected={selectedIssues.length === issues.length}
-        >
-          Select All
-        </Card>
-        <Card onClick={() => dispatch(selectNoneIssues())}>Select None</Card>
-      </Wrap>
-      <Button
-        onClick={() => {
-          router.push(ROUTES.issue);
-        }}
-        disabled={selectedIssues.length < 3}
+    <QuizLayout>
+      <QuizLayoutHeader>
+        <QuizLayoutSubtitle>PART 2</QuizLayoutSubtitle>
+        <QuizLayoutTitle>Select Issues</QuizLayoutTitle>
+        <QuizLayoutDescription>
+          Know which candidates have the same opinions on issues that matter to
+          you. Select at least 3 issues.
+        </QuizLayoutDescription>
+
+        <QuizLayoutNextButton
+          isDisabled={selectedIssues.length < 3}
+          onClick={() => {
+            router.push(ROUTES.issue);
+          }}
+        />
+      </QuizLayoutHeader>
+      <QuizLayoutContent
+        overflow="auto"
+        overscrollBehavior="none"
+        flexDir={{ base: 'column', md: 'row' }}
       >
-        Next
-      </Button>
-    </Layout>
+        <Container maxW="container.xl" w="full">
+          <Flex my={8} align="center" justify="center">
+            <Button
+              size="sm"
+              isFullWidth
+              mr={2}
+              onClick={() => dispatch(selectAllIssues())}
+              isActive={selectedIssues.length === issues.length}
+              maxW="400px"
+              colorScheme="teal"
+              variant="outline"
+            >
+              SELECT ALL
+            </Button>
+            <Button
+              size="sm"
+              isFullWidth
+              ml={2}
+              onClick={() => dispatch(selectNoneIssues())}
+              maxW="400px"
+              colorScheme="teal"
+              variant="outline"
+            >
+              SELECT NONE
+            </Button>
+          </Flex>
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 5 }}
+            spacing={{ base: 3, md: 4 }}
+            my={4}
+          >
+            {issues.map(({ key, value }) => (
+              <Card
+                key={`select-issue/${key}`}
+                onClick={() => dispatch(toggleSelectedIssues(key))}
+                selected={selectedIssues.includes(key)}
+                mx={0}
+                my={0}
+                w={{ base: 'full', md: 'inherit' }}
+                textAlign="center"
+                justify="center"
+                colorScheme="teal"
+                py={{ base: 3, md: 7 }}
+              >
+                <Text
+                  fontWeight={
+                    selectedIssues.includes(key) ? 'bold' : 'semibold'
+                  }
+                >
+                  {value}
+                </Text>
+              </Card>
+            ))}
+          </SimpleGrid>
+        </Container>
+      </QuizLayoutContent>
+    </QuizLayout>
   );
 };
 
