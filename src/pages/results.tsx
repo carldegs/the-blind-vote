@@ -30,6 +30,7 @@ import {
 import ControversyCard from '../organisms/ControversyCard';
 import IssueCard from '../organisms/IssueCard';
 import ProfileCard from '../organisms/ProfileCard';
+import { ROUTES } from '../routes';
 import { Issue } from '../types/Issue';
 
 const Results: React.FC = () => {
