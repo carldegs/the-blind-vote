@@ -6,12 +6,16 @@ import {
   Text,
   Button,
   ButtonProps,
+  FlexProps,
 } from '@chakra-ui/react';
 import { ArrowRight } from 'phosphor-react';
 
 import Layout from './Layout';
 
-export const QuizLayoutHeader: React.FC = ({ children }) => (
+export const QuizLayoutHeader: React.FC<FlexProps> = ({
+  children,
+  ...flexProps
+}) => (
   <Flex
     w="full"
     minH={{ base: '250px', md: '300px' }}
@@ -20,6 +24,7 @@ export const QuizLayoutHeader: React.FC = ({ children }) => (
     justify="center"
     py={6}
     boxShadow="md"
+    {...flexProps}
   >
     <Container maxW="container.lg">{children}</Container>
   </Flex>
@@ -71,13 +76,16 @@ export const QuizLayoutContent: React.FC<ContainerProps> = ({
   children,
   ...otherProps
 }) => (
-  <Flex w="full" flexGrow={1} align="center" {...otherProps}>
+  <Flex w="full" flexGrow={1} align="center" {...otherProps} pb={4}>
     {children}
   </Flex>
 );
 
-const QuizLayout: React.FC = ({ children }) => {
-  return <Layout center>{children}</Layout>;
+const QuizLayout: React.FC<{ center?: boolean }> = ({
+  center = true,
+  children,
+}) => {
+  return <Layout center={center}>{children}</Layout>;
 };
 
 export default QuizLayout;

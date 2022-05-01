@@ -1,10 +1,3 @@
-import {
-  Button,
-  ListItem,
-  Spacer,
-  Text,
-  UnorderedList,
-} from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 
@@ -19,7 +12,7 @@ import QuizLayout, {
   QuizLayoutTitle,
 } from '../layouts/QuizLayout';
 import { setProfile } from '../modules/pollSlice';
-import Card from '../molecules/Card';
+import ProfileCard from '../organisms/ProfileCard';
 import { ROUTES } from '../routes';
 import shuffleArray from '../utils/shuffleArray';
 
@@ -62,46 +55,14 @@ const Profile: React.FC = () => {
         flexDir={{ base: 'column', md: 'row' }}
       >
         {profiles.map(({ id, personalProfile, governmentProfile }) => (
-          <Card
-            key={`profile/${id}`}
+          <ProfileCard
+            key={id}
+            id={id}
             selected={selectedProfile === id}
-            w={{ base: '90%', md: '350px' }}
-            minW="350px"
-            h="full"
-            maxH={{ base: '500px', md: '500px' }}
-          >
-            <Text fontSize="sm" letterSpacing="widest" fontWeight="bold">
-              PERSONAL LIFE
-            </Text>
-            <UnorderedList>
-              {personalProfile.map((profile) => (
-                <ListItem key={`profile/${id}/personal/${profile}`}>
-                  {profile}
-                </ListItem>
-              ))}
-            </UnorderedList>
-            <Text fontSize="sm" letterSpacing="widest" fontWeight="bold" mt={6}>
-              GOVERNMENT LIFE
-            </Text>
-            <UnorderedList>
-              {governmentProfile.map((profile) => (
-                <ListItem key={`profile/${id}/government/${profile}`}>
-                  {profile}
-                </ListItem>
-              ))}
-            </UnorderedList>
-
-            <Spacer />
-
-            <Button
-              isFullWidth
-              colorScheme={selectedProfile === id ? 'green' : 'blue'}
-              onClick={() => dispatch(setProfile(id))}
-              mt={4}
-            >
-              {selectedProfile === id ? 'SELECTED' : 'SELECT'}
-            </Button>
-          </Card>
+            onClick={() => dispatch(setProfile(id))}
+            personalProfile={personalProfile}
+            governmentProfile={governmentProfile}
+          />
         ))}
       </QuizLayoutContent>
     </QuizLayout>
