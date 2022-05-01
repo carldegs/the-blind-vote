@@ -146,7 +146,7 @@ const Results: React.FC = () => {
               window.open(
                 `https://twitter.com/intent/tweet?text=${encodeURI(
                   topListString
-                )}`
+                )}&url=https://blindtest.carldegs.com/`
               );
             }}
           />
@@ -155,6 +155,15 @@ const Results: React.FC = () => {
             colorScheme="facebook"
             aria-label="Facebook"
             size="lg"
+            onClick={() => {
+              window.open(
+                `https://www.facebook.com/dialog/share?app_id=365617072026477&display=popup&href=${encodeURI(
+                  'http://blindtest.carldegs.com/'
+                )}&quote=${encodeURI(topListString)}&redirect_uri=${encodeURI(
+                  'http://blindtest.carldegs.com/'
+                )}`
+              );
+            }}
           />
           <IconButton
             icon={<EnvelopeSimple weight="duotone" size={28} />}
