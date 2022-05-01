@@ -1,14 +1,12 @@
 import {
   Avatar,
   Button,
-  Circle,
   Divider,
   Flex,
   Heading,
   HStack,
   SimpleGrid,
   Spacer,
-  Stack,
   Text,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
@@ -16,7 +14,6 @@ import { useEffect } from 'react';
 
 import { CANDIDATES, ISSUE_TITLE } from '../constants';
 import { useAppSelector } from '../hooks/reduxHooks';
-import Layout from '../layouts/Layout';
 import QuizLayout, {
   QuizLayoutContent,
   QuizLayoutHeader,
@@ -30,7 +27,6 @@ import {
   selectTopResults,
   selectValidResultsPage,
 } from '../modules/pollSelectors';
-import Card from '../molecules/Card';
 import ControversyCard from '../organisms/ControversyCard';
 import IssueCard from '../organisms/IssueCard';
 import ProfileCard from '../organisms/ProfileCard';
@@ -50,10 +46,6 @@ const Results: React.FC = () => {
       // router.push(ROUTES.home);
     }
   }, [isValid, router]);
-
-  console.log({
-    results,
-  });
 
   return (
     <QuizLayout center={false}>
@@ -252,7 +244,7 @@ const Results: React.FC = () => {
         <Divider my={8} />
         <Heading fontSize="3xl">Points Breakdown</Heading>
         <Flex w="full" maxW="container.md" flexDir="column">
-          {results.map(({ id, score, selected }) => (
+          {results.map(({ id, score }) => (
             <Flex
               key={id}
               boxShadow="lg"
