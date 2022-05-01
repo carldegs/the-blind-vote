@@ -13,12 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import {
-  ArrowSquareOut,
-  EnvelopeSimple,
-  FacebookLogo,
-  TwitterLogo,
-} from 'phosphor-react';
+import { EnvelopeSimple, FacebookLogo, TwitterLogo } from 'phosphor-react';
 import { useEffect, useMemo } from 'react';
 
 import Footer from '../atoms/Footer';
