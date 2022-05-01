@@ -1,4 +1,3 @@
-import { Button, Text, Flex, Spacer } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 
@@ -18,7 +17,6 @@ import {
   selectValidIssuesPage,
 } from '../../modules/pollSelectors';
 import { setNextIssue, setStand } from '../../modules/pollSlice';
-import Card from '../../molecules/Card';
 import IssueCard from '../../organisms/IssueCard';
 import { ROUTES } from '../../routes';
 import { Alignment } from '../../types/Alignment';
@@ -43,7 +41,7 @@ const Issue: React.FC = () => {
     [issueIdx, selectedIssues]
   );
   const currStand = useMemo(() => stands[issue], [issue, stands]);
-  const { candidateStands, hasAlignment } = useMemo(() => {
+  const { candidateStands } = useMemo(() => {
     let candidateStands = shuffleArray(
       Object.values(CANDIDATES).map(({ id, stands }) => ({
         id,
