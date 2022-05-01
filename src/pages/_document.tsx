@@ -6,6 +6,22 @@ export default function Document() {
       <Head>
         <title>The Blind Test: The Undecided Voters&apos; Guide</title>
 
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-KKZWZEP9PG`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          
+            gtag('config', 'G-KKZWZEP9PG');
+          `,
+          }}
+        />
+
         <meta name="twitter:card" content="summary"></meta>
         <meta name="twitter:site" content="@reccreateph" />
         <meta name="twitter:creator" content="@carldegs" />

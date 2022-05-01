@@ -11,9 +11,11 @@ import {
   Spacer,
   Stack,
   Text,
+  useClipboard,
+  useToast,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { EnvelopeSimple, FacebookLogo, TwitterLogo } from 'phosphor-react';
+import { Copy, FacebookLogo, TwitterLogo } from 'phosphor-react';
 import { useEffect, useMemo } from 'react';
 
 import Footer from '../atoms/Footer';
@@ -42,6 +44,7 @@ import IssueCard from '../organisms/IssueCard';
 import ProfileCard from '../organisms/ProfileCard';
 import { ROUTES } from '../routes';
 import { Issue } from '../types/Issue';
+import { GTAG_EVENTS, sendEvent } from '../utils/gtag';
 
 const Results: React.FC = () => {
   const router = useRouter();
@@ -57,7 +60,7 @@ const Results: React.FC = () => {
         let joiner = '';
         if (i === topCandidates.length - 2) {
           joiner = ' and ';
-        } else if (topCandidates.length > 1) {
+        } else if (topCandidates.length > 1 && i !== topCandidates.length - 1) {
           joiner = ', ';
         }
 
@@ -67,16 +70,30 @@ const Results: React.FC = () => {
 
     const isMultiple = topCandidates.length > 1;
 
-    return `I took The Blind Vote and my top candidate${
+    return `I took The Blind Test and my top candidate${
       isMultiple ? 's are ' : ' is '
     }${topList}.\n\n`;
   }, [topCandidates]);
+
+  const { hasCopied, onCopy } = useClipboard(
+    `${topListString}\n\nTake the test at https://blindtest.carldegs.com/`
+  );
+  const toast = useToast();
 
   useEffect(() => {
     if (!isValid) {
       router.push(ROUTES.home);
     }
   }, [isValid, router]);
+
+  useEffect(() => {
+    if (hasCopied) {
+      toast({
+        title: 'Copied results!',
+        status: 'success',
+      });
+    }
+  }, [hasCopied, toast]);
 
   return (
     <QuizLayout center={false}>
@@ -125,6 +142,7 @@ const Results: React.FC = () => {
               <Button
                 mt={2}
                 onClick={() => {
+                  sendEvent(GTAG_EVENTS.clickLearnMore);
                   window.open(`${CANDIDATE_URL}/${CANDIDATES[id].url}.html`);
                 }}
               >
@@ -143,6 +161,7 @@ const Results: React.FC = () => {
             aria-label="Twitter"
             size="lg"
             onClick={() => {
+              sendEvent(GTAG_EVENTS.shareResults('twitter'));
               window.open(
                 `https://twitter.com/intent/tweet?text=${encodeURI(
                   topListString
@@ -156,6 +175,7 @@ const Results: React.FC = () => {
             aria-label="Facebook"
             size="lg"
             onClick={() => {
+              sendEvent(GTAG_EVENTS.shareResults('fb'));
               window.open(
                 `https://www.facebook.com/dialog/share?app_id=365617072026477&display=popup&href=${encodeURI(
                   'http://blindtest.carldegs.com/'
@@ -166,10 +186,15 @@ const Results: React.FC = () => {
             }}
           />
           <IconButton
-            icon={<EnvelopeSimple weight="duotone" size={28} />}
+            icon={<Copy weight="duotone" size={28} />}
             colorScheme="cyan"
-            aria-label="Twitter"
+            aria-label="E-mail"
+            title="Copy Results"
             size="lg"
+            onClick={() => {
+              sendEvent(GTAG_EVENTS.shareResults('copy'));
+              onCopy();
+            }}
           />
         </HStack>
 

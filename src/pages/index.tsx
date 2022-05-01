@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Footer from '../atoms/Footer';
 import QuizLayout from '../layouts/QuizLayout';
 import { ROUTES } from '../routes';
+import { GTAG_EVENTS, sendEvent } from '../utils/gtag';
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -75,6 +76,7 @@ const Home: React.FC = () => {
           colorScheme="purple"
           onClick={() => {
             router.push(ROUTES.intro);
+            sendEvent(GTAG_EVENTS.clickLandingCTA);
           }}
           fontSize="xl"
         >
@@ -82,7 +84,14 @@ const Home: React.FC = () => {
         </Button>
       </Flex>
       <Stack mt={16} spacing={4} direction={{ base: 'column', md: 'row' }}>
-        <Link href="https://youtu.be/QvOzNL2NsHs" isExternal mx={4}>
+        <Link
+          href="https://youtu.be/QvOzNL2NsHs"
+          isExternal
+          mx={4}
+          onClick={() => {
+            sendEvent(GTAG_EVENTS.openVideo);
+          }}
+        >
           <Flex
             pos="relative"
             flexDir="column"

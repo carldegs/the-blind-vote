@@ -13,6 +13,7 @@ import QuizLayout, {
 import { setProfile } from '../modules/pollSlice';
 import ProfileCard from '../organisms/ProfileCard';
 import { ROUTES } from '../routes';
+import { GTAG_EVENTS, sendEvent } from '../utils/gtag';
 import shuffleArray from '../utils/shuffleArray';
 
 const Profile: React.FC = () => {
@@ -41,6 +42,7 @@ const Profile: React.FC = () => {
         <QuizLayoutNextButton
           isDisabled={!selectedProfile}
           onClick={() => {
+            sendEvent(GTAG_EVENTS.select('profile', selectedProfile));
             router.push(ROUTES.selectIssues);
           }}
         />

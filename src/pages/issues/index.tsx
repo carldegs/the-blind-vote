@@ -21,6 +21,7 @@ import { setNextIssue, setStand } from '../../modules/pollSlice';
 import IssueCard from '../../organisms/IssueCard';
 import { ROUTES } from '../../routes';
 import { Alignment } from '../../types/Alignment';
+import { GTAG_EVENTS, sendEvent } from '../../utils/gtag';
 import shuffleArray from '../../utils/shuffleArray';
 
 const Issue: React.FC = () => {
@@ -98,6 +99,7 @@ const Issue: React.FC = () => {
         <QuizLayoutNextButton
           onClick={() => {
             if (issueIdx < selectedIssues.length - 1) {
+              sendEvent(GTAG_EVENTS.select(issue, currStand));
               dispatch(setNextIssue());
               window.scrollTo(0, 0);
             } else {

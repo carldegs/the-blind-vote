@@ -16,6 +16,7 @@ import { selectValidControversiesPage } from '../modules/pollSelectors';
 import { toggleControversies } from '../modules/pollSlice';
 import Card from '../molecules/Card';
 import { ROUTES } from '../routes';
+import { GTAG_EVENTS, sendEvent } from '../utils/gtag';
 import shuffleArray from '../utils/shuffleArray';
 
 const Controversies: React.FC = () => {
@@ -56,6 +57,9 @@ const Controversies: React.FC = () => {
         <QuizLayoutNextButton
           isDisabled={selectedControversies.length > 3}
           onClick={() => {
+            selectedControversies.forEach((contro) => {
+              sendEvent(GTAG_EVENTS.select('controversies', contro));
+            });
             router.push(ROUTES.results);
           }}
         />
@@ -86,7 +90,9 @@ const Controversies: React.FC = () => {
               colorScheme={
                 selectedControversies.includes(id) ? 'green' : 'blue'
               }
-              onClick={() => dispatch(toggleControversies(id))}
+              onClick={() => {
+                dispatch(toggleControversies(id));
+              }}
               mt={4}
             >
               {selectedControversies.includes(id) ? 'SELECTED' : 'SELECT'}

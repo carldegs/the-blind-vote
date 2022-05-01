@@ -8,6 +8,7 @@ import QuizLayout, {
   QuizLayoutTitle,
 } from '../layouts/QuizLayout';
 import { ROUTES } from '../routes';
+import { GTAG_EVENTS, sendEvent } from '../utils/gtag';
 
 const Intro: React.FC = () => {
   const router = useRouter();
@@ -37,6 +38,7 @@ const Intro: React.FC = () => {
       <QuizLayoutContent alignItems="center" justifyContent="center">
         <Button
           onClick={() => {
+            sendEvent(GTAG_EVENTS.clickStartQuiz);
             router.push(ROUTES.profile);
           }}
           size="lg"

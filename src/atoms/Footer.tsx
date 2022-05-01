@@ -1,5 +1,7 @@
 import { Flex, FlexProps, Image, Link, Text } from '@chakra-ui/react';
 
+import { GTAG_EVENTS, sendEvent } from '../utils/gtag';
+
 const Footer: React.FC<FlexProps> = (flexProps) => {
   return (
     <Flex
@@ -20,6 +22,9 @@ const Footer: React.FC<FlexProps> = (flexProps) => {
       <Link
         isExternal
         href="https://www.youtube.com/channel/UCpZdK-V4x1b2TFzFBKwGztw"
+        onClick={() => {
+          sendEvent(GTAG_EVENTS.openReccreate);
+        }}
       >
         <Image
           ml={2}
@@ -41,6 +46,9 @@ const Footer: React.FC<FlexProps> = (flexProps) => {
       <Link
         isExternal
         href="https://www.linkedin.com/in/carl-justin-de-guia-b40a1b97/"
+        onClick={() => {
+          sendEvent(GTAG_EVENTS.openLinkedIn);
+        }}
       >
         <Image
           src="img/carldegs-logo.svg"
