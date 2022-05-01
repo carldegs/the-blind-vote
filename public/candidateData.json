@@ -1,6 +1,6 @@
 {
-  "lyrtn0d6flc": {
-    "id": "lyrtn0d6flc",
+  "1atllrgioz9": {
+    "id": "1atllrgioz9",
     "name": "Ernesto Abella",
     "ballotNumber": 1,
     "personalProfile": [
@@ -55,10 +55,11 @@
         "statement": "For drug-related crimes, heinous crimes"
       }
     },
-    "controversies": []
+    "controversies": [],
+    "url": "abella-ernie"
   },
-  "hd4yoxzxnkv": {
-    "id": "hd4yoxzxnkv",
+  "6agsiynq3l6": {
+    "id": "6agsiynq3l6",
     "name": "Leody de Guzman",
     "ballotNumber": 2,
     "personalProfile": [
@@ -110,10 +111,11 @@
         "statement": "As long as there is poverty, crimes are inevitable. Government should focus on eradicating poverty to eradicate heinous crimes so that we won't need the death penalty."
       }
     },
-    "controversies": []
+    "controversies": [],
+    "url": "deguzman-leody"
   },
-  "xmaxqplon2": {
-    "id": "xmaxqplon2",
+  "tot3ask1e2": {
+    "id": "tot3ask1e2",
     "name": "Isko Moreno Domagoso",
     "ballotNumber": 3,
     "personalProfile": [
@@ -167,10 +169,11 @@
     },
     "controversies": [
       "ARRESTED due to alleged bingo operations held in a public place but charges were DISMISSED due to lack of evidence."
-    ]
+    ],
+    "url": "domagoso-isko"
   },
-  "edqj6hf5a49": {
-    "id": "edqj6hf5a49",
+  "ua7h7wmmeoh": {
+    "id": "ua7h7wmmeoh",
     "name": "Norberto Gonzales",
     "ballotNumber": 4,
     "personalProfile": [
@@ -226,10 +229,11 @@
     "controversies": [
       "Was CHARGED with misuse of 96M worth of government funds, still a PENDING CASE.",
       "Was IMPLICATED in a case of contempt by the Supreme Court."
-    ]
+    ],
+    "url": "gonzales-norberto"
   },
-  "jiaek4acha8": {
-    "id": "jiaek4acha8",
+  "pp1baid4eer": {
+    "id": "pp1baid4eer",
     "name": "Ping Lacson",
     "ballotNumber": 5,
     "personalProfile": [
@@ -285,10 +289,11 @@
     },
     "controversies": [
       "FILED with murder charges, but DISMISSED for lack of probable cause."
-    ]
+    ],
+    "url": "lacson-ping"
   },
-  "ltekxxgzcea": {
-    "id": "ltekxxgzcea",
+  "xdh7jlo4rf8": {
+    "id": "xdh7jlo4rf8",
     "name": "Faisal Mangondato",
     "ballotNumber": 6,
     "personalProfile": [
@@ -339,10 +344,11 @@
         "statement": "The punishment should fit the crime."
       }
     },
-    "controversies": []
+    "controversies": [],
+    "url": "mangondato-faisal"
   },
-  "kqw3gco5qqm": {
-    "id": "kqw3gco5qqm",
+  "5cuwls9bp3k": {
+    "id": "5cuwls9bp3k",
     "name": "Ferdinand “Bongbong” Marcos Jr.",
     "ballotNumber": 7,
     "personalProfile": [
@@ -399,10 +405,11 @@
       "Has numerous ill-gotten wealth cases.",
       "CONVICTED as a tax evader in 9 cases.",
       "Was LINKED to Janet Napoles' pork barrel scam."
-    ]
+    ],
+    "url": "marcos-ferdinand"
   },
-  "47zo6qh6098": {
-    "id": "47zo6qh6098",
+  "qlzutlzbvq": {
+    "id": "qlzutlzbvq",
     "name": "Jose Montemayor Jr.",
     "ballotNumber": 8,
     "personalProfile": [
@@ -456,10 +463,11 @@
         "statement": "No data available."
       }
     },
-    "controversies": []
+    "controversies": [],
+    "url": "montemayorjr-jose"
   },
-  "xhy48uqmc3": {
-    "id": "xhy48uqmc3",
+  "0ibew6gr2io8": {
+    "id": "0ibew6gr2io8",
     "name": "Manny Pacquiao",
     "ballotNumber": 9,
     "personalProfile": [
@@ -512,10 +520,11 @@
         "statement": "Death penalty is not illegal and does not go against the government, nor the eyes of God."
       }
     },
-    "controversies": []
+    "controversies": [],
+    "url": "pacquiao-manny"
   },
-  "81u2f1dcvg6": {
-    "id": "81u2f1dcvg6",
+  "0owtrcui9t9": {
+    "id": "0owtrcui9t9",
     "name": "Leni Robredo",
     "ballotNumber": 10,
     "personalProfile": [
@@ -571,6 +580,7 @@
     },
     "controversies": [
       "ACCUSED of rigging the election by the opposition but was ACQUITTED UNANIMOUSLY by the Supreme Court due to lack of merit."
-    ]
+    ],
+    "url": "robredo-leni"
   }
 }

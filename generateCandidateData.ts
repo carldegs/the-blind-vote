@@ -48,6 +48,17 @@ Manny Pacquiao
 Leni Robredo
 `;
 
+const URL = `abella-ernie
+deguzman-leody
+domagoso-isko
+gonzales-norberto
+lacson-ping
+mangondato-faisal
+marcos-ferdinand
+montemayorjr-jose
+pacquiao-manny
+robredo-leni`;
+
 const PERSONAL_PROFILES = `Was a Christian pastor
 Was CEO of different businesses
 Was a columnist for newspapers
@@ -452,6 +463,7 @@ const parseStands = (standObj: Record<Issue, string>) =>
       })),
     ];
   });
+const urls = URL.split('\n').filter((x) => !!x);
 const personalProfiles = parseProfile(PERSONAL_PROFILES);
 const governmentProfiles = parseProfile(GOVERNMENT_PROFILES);
 const stands = parseStands(STANDS);
@@ -470,6 +482,7 @@ const candidatesArr: Candidate[] = NAMES.split('\n')
     controversies: controversies[i].filter(
       (controversy) => controversy !== 'N/A'
     ),
+    url: urls[i],
   }));
 const candidates = Object.fromEntries(
   candidatesArr.map((candidateData) => [candidateData.id, candidateData])

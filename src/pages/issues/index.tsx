@@ -1,9 +1,10 @@
+import { Box, Flex, useDimensions } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 
-import { CANDIDATES, ISSUE_TITLE } from '../../constants';
+import { CANDIDATES, ISSUE_BLURB, ISSUE_TITLE } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import QuizLayout, {
+import {
   QuizLayoutContent,
   QuizLayoutDescription,
   QuizLayoutHeader,
@@ -29,6 +30,8 @@ const Issue: React.FC = () => {
   const stands = useAppSelector(selectStands);
   const issueIdx = useAppSelector(({ poll }) => poll.issueIdx);
   const isValid = useAppSelector(selectValidIssuesPage);
+  const elementRef = useRef();
+  const dimensions = useDimensions(elementRef, true);
 
   useEffect(() => {
     if (!isValid) {
@@ -43,10 +46,16 @@ const Issue: React.FC = () => {
   const currStand = useMemo(() => stands[issue], [issue, stands]);
   const { candidateStands } = useMemo(() => {
     let candidateStands = shuffleArray(
-      Object.values(CANDIDATES).map(({ id, stands }) => ({
-        id,
-        stand: stands[issue],
-      }))
+      Object.values(CANDIDATES)
+        .map(({ id, stands }) => ({
+          id,
+          stand: stands[issue],
+        }))
+        .filter(
+          ({ stand }) =>
+            !stand?.statement.includes('No statement available') &&
+            !stand?.statement.includes('No data available')
+        )
     );
     let hasAlignment = false;
 
@@ -61,6 +70,12 @@ const Issue: React.FC = () => {
       hasAlignment = true;
     }
 
+    if (hasAlignment) {
+      candidateStands.sort(
+        ({ stand: a }, { stand: b }) => a?.alignment - b?.alignment
+      );
+    }
+
     return { candidateStands, hasAlignment };
   }, [issue]);
 
@@ -71,17 +86,20 @@ const Issue: React.FC = () => {
   }, [router, selectedIssues.length]);
 
   return (
-    <QuizLayout>
-      <QuizLayoutHeader>
+    <Flex h="100vh" flexDir="column">
+      <QuizLayoutHeader minH="unset">
         <QuizLayoutSubtitle>{`PART 2 | ISSUE ${issueIdx + 1}/${
           selectedIssues.length
         }`}</QuizLayoutSubtitle>
         <QuizLayoutTitle>{ISSUE_TITLE[issue]}</QuizLayoutTitle>
-        <QuizLayoutDescription>TODO: Create blurbs</QuizLayoutDescription>
+        <QuizLayoutDescription fontSize={{ base: 'sm', md: 'md' }}>
+          {ISSUE_BLURB[issue]}
+        </QuizLayoutDescription>
         <QuizLayoutNextButton
           onClick={() => {
             if (issueIdx < selectedIssues.length - 1) {
               dispatch(setNextIssue());
+              window.scrollTo(0, 0);
             } else {
               router.push(ROUTES.controversies);
             }
@@ -89,8 +107,35 @@ const Issue: React.FC = () => {
           isDisabled={!currStand}
         />
       </QuizLayoutHeader>
+
+      {dimensions?.borderBox?.top <= 0 && (
+        <QuizLayoutHeader
+          pos="fixed"
+          top={0}
+          minH={0}
+          zIndex={10}
+          display={{ base: 'unset', md: 'none' }}
+          py={0}
+        >
+          <QuizLayoutTitle>{ISSUE_TITLE[issue]}</QuizLayoutTitle>
+          <QuizLayoutNextButton
+            onClick={() => {
+              if (issueIdx < selectedIssues.length - 1) {
+                dispatch(setNextIssue());
+                window.scrollTo(0, 0);
+              } else {
+                router.push(ROUTES.controversies);
+              }
+            }}
+            isDisabled={!currStand}
+            mt={-2}
+          />
+        </QuizLayoutHeader>
+      )}
+
+      <Box ref={elementRef} />
       <QuizLayoutContent
-        overflow="auto"
+        overflow={{ base: 'visible', md: 'auto' }}
         overscrollBehavior="none"
         flexDir={{ base: 'column', md: 'row' }}
       >
@@ -109,7 +154,7 @@ const Issue: React.FC = () => {
           );
         })}
       </QuizLayoutContent>
-    </QuizLayout>
+    </Flex>
   );
 };
 

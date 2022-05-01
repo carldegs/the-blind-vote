@@ -5,14 +5,29 @@ import {
   Flex,
   Heading,
   HStack,
+  IconButton,
+  Link,
   SimpleGrid,
   Spacer,
+  Stack,
   Text,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import {
+  ArrowSquareOut,
+  EnvelopeSimple,
+  FacebookLogo,
+  TwitterLogo,
+} from 'phosphor-react';
+import { useEffect, useMemo } from 'react';
 
-import { CANDIDATES, ISSUE_TITLE } from '../constants';
+import Footer from '../atoms/Footer';
+import {
+  CANDIDATES,
+  CANDIDATE_URL,
+  ISSUE_TITLE,
+  REFERENCES,
+} from '../constants';
 import { useAppSelector } from '../hooks/reduxHooks';
 import QuizLayout, {
   QuizLayoutContent,
@@ -41,6 +56,26 @@ const Results: React.FC = () => {
   const profile = useAppSelector(selectProfile);
   const issues = useAppSelector(selectStands);
   const controversies = useAppSelector(selectControversies);
+  const topListString = useMemo(() => {
+    const topList = topCandidates
+      .map(({ id }, i) => {
+        let joiner = '';
+        if (i === topCandidates.length - 2) {
+          joiner = ' and ';
+        } else if (topCandidates.length > 1) {
+          joiner = ', ';
+        }
+
+        return `${CANDIDATES[id].name}${joiner}`;
+      })
+      .join('');
+
+    const isMultiple = topCandidates.length > 1;
+
+    return `I took The Blind Vote and my top candidate${
+      isMultiple ? 's are ' : ' is '
+    }${topList}.\n\n`;
+  }, [topCandidates]);
 
   useEffect(() => {
     if (!isValid) {
@@ -66,8 +101,8 @@ const Results: React.FC = () => {
               my={{ base: 3, md: 0 }}
             >
               <Avatar
-                w="175px"
-                h="175px"
+                w={{ base: '125px', md: '175px' }}
+                h={{ base: '125px', md: '175px' }}
                 name={CANDIDATES[id].name}
                 src={`img/candidate-${CANDIDATES[id].ballotNumber}.png`}
                 mr={3}
@@ -92,17 +127,46 @@ const Results: React.FC = () => {
                   {CANDIDATES[id].name}
                 </Text>
               </Flex>
-              <Button mt={2}>Learn More</Button>
+              <Button
+                mt={2}
+                onClick={() => {
+                  window.open(`${CANDIDATE_URL}/${CANDIDATES[id].url}.html`);
+                }}
+              >
+                Learn More
+              </Button>
             </Flex>
           ))}
         </Flex>
-        <Text w="full" textAlign="center" mt={8}>
-          Share your results
+        <Text w="full" textAlign="center" fontWeight="bold" mt={8} mb={4}>
+          SHARE YOUR RESULTS
         </Text>
         <HStack spacing={2}>
-          <Button>TWITTER</Button>
-          <Button>FACEBOOK</Button>
-          <Button>EMAIL</Button>
+          <IconButton
+            icon={<TwitterLogo weight="duotone" size={28} />}
+            colorScheme="twitter"
+            aria-label="Twitter"
+            size="lg"
+            onClick={() => {
+              window.open(
+                `https://twitter.com/intent/tweet?text=${encodeURI(
+                  topListString
+                )}`
+              );
+            }}
+          />
+          <IconButton
+            icon={<FacebookLogo weight="duotone" size={28} />}
+            colorScheme="facebook"
+            aria-label="Facebook"
+            size="lg"
+          />
+          <IconButton
+            icon={<EnvelopeSimple weight="duotone" size={28} />}
+            colorScheme="cyan"
+            aria-label="Twitter"
+            size="lg"
+          />
         </HStack>
 
         <Divider my={8} />
@@ -112,7 +176,7 @@ const Results: React.FC = () => {
           topCandidates.length > 1 ? 'S' : ''
         } GOT ${topScore}PT${topScore > 1 ? 'S' : ''}.`}</Text>
 
-        <SimpleGrid columns={{ base: 1, md: 3 }} mt={-12}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} mt={-12}>
           {!!(
             profile && !!topCandidates.find(({ id }) => id === profile)?.id
           ) && (
@@ -178,7 +242,7 @@ const Results: React.FC = () => {
         <Text fontSize="xl" mt={32} fontWeight="bold" letterSpacing="widest">
           YOUR OTHER CHOICES
         </Text>
-        <SimpleGrid columns={{ base: 1, md: 3 }} mt={-12} mb={24}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} mt={-12} mb={24}>
           {!!(
             profile && !topCandidates.find(({ id }) => id === profile)?.id
           ) && (
@@ -253,11 +317,13 @@ const Results: React.FC = () => {
               align="center"
               border="1px"
               borderColor="gray.100"
-              borderRadius="md"
-              my={2}
+              borderRadius="lg"
+              my={1}
               w="full"
               px={6}
               py={4}
+              bg="purple.300"
+              color="purple.900"
             >
               <Avatar
                 size="md"
@@ -271,6 +337,52 @@ const Results: React.FC = () => {
             </Flex>
           ))}
         </Flex>
+
+        <Divider my={8} />
+        <Heading fontSize="3xl">References</Heading>
+        <Stack mt={4} mx={4}>
+          {REFERENCES.map(({ title, link }, i) => (
+            <HStack key={title}>
+              <Text>{`[${i + 1}] ${title}`}</Text>
+              <Link
+                isExternal
+                href={link}
+                color="blue.400"
+                display="inline-block"
+              >
+                <Text as="span">Link</Text>
+              </Link>
+            </HStack>
+          ))}
+        </Stack>
+
+        <Footer mt={16} />
+        <HStack
+          display="inline-block"
+          alignItems="center"
+          textAlign="center"
+          mt={3}
+          mb={8}
+          mx={2}
+        >
+          <Text
+            as="span"
+            letterSpacing="widest"
+            fontSize="sm"
+            fontWeight="black"
+          >
+            FOR QUESTIONS, COMMENTS, OR SUGGESTIONS, SEND AN EMAIL AT
+          </Text>
+          <Link
+            href="mailto:carl@carldegs.com"
+            fontSize="sm"
+            fontWeight="black"
+            color="blue.400"
+            as="a"
+          >
+            carl@carldegs.com
+          </Link>
+        </HStack>
       </QuizLayoutContent>
     </QuizLayout>
   );

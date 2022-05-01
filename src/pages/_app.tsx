@@ -1,5 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import '@fontsource/sora';
+import Head from 'next/head';
 import React, { useRef } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -23,6 +24,25 @@ const MyApp: React.FC<any> = ({ Component, pageProps }) => {
         <Hydrate state={pageProps.dehydratedState}>
           <ChakraProvider theme={theme}>
             <Fonts />
+            <Head>
+              <title>The Blind Test: The Undecided Voters&apos; Guide</title>
+              <meta name="twitter:card" content="summary"></meta>
+              <meta name="twitter:site" content="@reccreateph" />
+              <meta name="twitter:creator" content="@carldegs" />
+              <meta
+                property="og:url"
+                content="https://blindtest.carldegs.com/"
+              />
+              <meta property="og:title" content="The Blind Test" />
+              <meta
+                property="og:description"
+                content="Still haven't decided who your next President will be? Take the test and find out!"
+              />
+              <meta
+                property="og:image"
+                content="https://blindtest.carldegs.com/img/og-image.jpg"
+              />
+            </Head>
             <Component {...pageProps} />
           </ChakraProvider>
         </Hydrate>

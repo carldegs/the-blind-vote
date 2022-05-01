@@ -90,7 +90,7 @@ const IssueCard: React.FC<IssueCardProps> = ({
             </Text>
           </Flex>
         ))}
-      <Text mt={6}>{stand?.statement}</Text>
+      <Text mt={hasAlignment && 6}>{stand?.statement}</Text>
       <Spacer />
 
       {onClick && (

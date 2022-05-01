@@ -5,7 +5,6 @@ import { CANDIDATES } from '../constants';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import QuizLayout, {
   QuizLayoutContent,
-  QuizLayoutDescription,
   QuizLayoutHeader,
   QuizLayoutNextButton,
   QuizLayoutSubtitle,
@@ -39,9 +38,6 @@ const Profile: React.FC = () => {
       <QuizLayoutHeader>
         <QuizLayoutSubtitle>PART 1</QuizLayoutSubtitle>
         <QuizLayoutTitle>Personal and Government Profile</QuizLayoutTitle>
-        <QuizLayoutDescription>
-          Choose the profile you like the most without seeing their names
-        </QuizLayoutDescription>
         <QuizLayoutNextButton
           isDisabled={!selectedProfile}
           onClick={() => {

@@ -1,53 +1,88 @@
-import { Box, Heading, Link, Text } from '@chakra-ui/layout';
-import { Button, Flex } from '@chakra-ui/react';
-import Image from 'next/image';
+import { Box, Heading, Stack, Link, Text } from '@chakra-ui/layout';
+import { Button, Flex, useBreakpointValue, Image } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
-import ThumbnailVideo from '../../public/img/thumbnail-vid.webp';
-import ThumbnailImage from '../../public/img/thumbnail.webp';
-import Layout from '../layouts/Layout';
+import Footer from '../atoms/Footer';
+import QuizLayout from '../layouts/QuizLayout';
 import { ROUTES } from '../routes';
 
 const Home: React.FC = () => {
   const router = useRouter();
+  const center = useBreakpointValue({ base: false, md: true });
   return (
-    <Layout center>
-      <Heading fontSize={{ base: '7xl', md: '9xl' }} mb={-4}>
+    <QuizLayout center={center}>
+      <Box pos="absolute" w="full" top={0} zIndex={-1}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path
+            fill="var(--chakra-colors-purple-300)"
+            fillOpacity="1"
+            d="M0,0L30,10.7C60,21,120,43,180,85.3C240,128,300,192,360,181.3C420,171,480,85,540,74.7C600,64,660,128,720,149.3C780,171,840,149,900,149.3C960,149,1020,171,1080,202.7C1140,235,1200,277,1260,256C1320,235,1380,149,1410,106.7L1440,64L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"
+          ></path>
+        </svg>
+      </Box>
+      <Box
+        pos="absolute"
+        h={{ base: '200%', md: 'full' }}
+        w="full"
+        top={0}
+        zIndex={-2}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path
+            fill="var(--chakra-colors-purple-400)"
+            fillOpacity="1"
+            d="M0,192L30,186.7C60,181,120,171,180,181.3C240,192,300,224,360,229.3C420,235,480,213,540,186.7C600,160,660,128,720,144C780,160,840,224,900,240C960,256,1020,224,1080,186.7C1140,149,1200,107,1260,122.7C1320,139,1380,213,1410,250.7L1440,288L1440,0L1410,0C1380,0,1320,0,1260,0C1200,0,1140,0,1080,0C1020,0,960,0,900,0C840,0,780,0,720,0C660,0,600,0,540,0C480,0,420,0,360,0C300,0,240,0,180,0C120,0,60,0,30,0L0,0Z"
+          ></path>
+        </svg>
+      </Box>
+      <Heading
+        textAlign="center"
+        fontSize={{ base: '7xl', md: '9xl' }}
+        mb={-4}
+        mt={{ base: 24, md: 0 }}
+        color="purple.900"
+      >
         the blind test
       </Heading>
-      <Text fontSize={{ base: 'lg', md: '3xl' }} letterSpacing="widest" mt={0}>
-        THE UNDECIDED VOTERS&apos; GUIDE
-      </Text>
 
       <Text
-        mt={16}
-        fontSize={{ base: 'md', md: 'xl' }}
         textAlign="center"
-        px={4}
+        fontSize={{ base: 'lg', md: '3xl' }}
+        letterSpacing="widest"
+        mt={0}
+        color="purple.900"
       >
-        Something something walang maboto? Take the quiz now, and it might help
-        you decide!
+        THE UNDECIDED VOTERS&apos; GUIDE
       </Text>
-      <Button
-        size="lg"
-        mt={4}
-        onClick={() => {
-          router.push(ROUTES.intro);
-        }}
-      >
-        Take the Quiz
-      </Button>
-      {/* <Button
-        mt={4}
-        onClick={() => {
-          router.push(ROUTES.about);
-        }}
-        variant="ghost"
-      >
-        Learn more
-      </Button> */}
-      <Flex mt={16}>
-        <Link href="https://youtu.be/QvOzNL2NsHs" isExternal>
+      <Flex w="full" maxW="container.sm">
+        <Text
+          mt={16}
+          fontSize={{ base: 'md', md: 'xl' }}
+          textAlign="center"
+          px={4}
+        >
+          Still haven&apos;t decided who your next President will be? Take the
+          test and find out!
+        </Text>
+      </Flex>
+
+      <Flex w="full" justify="center">
+        <Button
+          size="lg"
+          maxW="300px"
+          w="full"
+          mt={4}
+          colorScheme="purple"
+          onClick={() => {
+            router.push(ROUTES.intro);
+          }}
+          fontSize="xl"
+        >
+          TAKE THE QUIZ
+        </Button>
+      </Flex>
+      <Stack mt={16} spacing={4} direction={{ base: 'column', md: 'row' }}>
+        <Link href="https://youtu.be/QvOzNL2NsHs" isExternal mx={4}>
           <Flex
             pos="relative"
             flexDir="column"
@@ -62,24 +97,31 @@ const Home: React.FC = () => {
             cursor="pointer"
             color="purple.900"
           >
-            <Box
+            <Flex
               opacity={1}
               _hover={{ opacity: 0 }}
               pos="absolute"
               zIndex={2}
-              width="360px"
-              height="202px"
+              w="full"
+              align="center"
+              justify="center"
+              left={0}
             >
-              <Image src={ThumbnailImage} alt="vid-thumbnail" layout="fill" />
-            </Box>
-            <Box>
               <Image
-                src={ThumbnailVideo}
-                alt="vid-thumbnail-vid"
-                width="360px"
-                height="202px"
+                src="img/thumbnail.webp"
+                alt="vid-thumbnail"
+                width={{ base: '300px', md: '360px' }}
+                height={{ base: '168px', md: '202px' }}
               />
-            </Box>
+            </Flex>
+            <Image
+              src="img/thumbnail-vid.webp"
+              alt="vid-thumbnail-vid"
+              width={{ base: '300px', md: '360px' }}
+              height={{ base: '168px', md: '202px' }}
+              zIndex={1}
+              m="auto"
+            />
 
             <Text
               fontWeight="bold"
@@ -91,8 +133,43 @@ const Home: React.FC = () => {
             </Text>
           </Flex>
         </Link>
-      </Flex>
-    </Layout>
+        {/* <Link href="/about" isExternal>
+          <Flex
+            pos="relative"
+            flexDir="column"
+            borderRadius="md"
+            boxShadow="lg"
+            bg="purple.400"
+            _hover={{
+              bg: 'purple.300',
+            }}
+            px={4}
+            py={4}
+            cursor="pointer"
+            color="purple.900"
+            align="center"
+            justify="center"
+            w="400px"
+            h="275px"
+          >
+            <Text textAlign="center">
+              <CircleWavyQuestion size={202} />
+            </Text>
+
+            <Text
+              fontWeight="bold"
+              letterSpacing="widest"
+              textAlign="center"
+              mt={4}
+            >
+              ABOUT THE QUIZ
+            </Text>
+          </Flex>
+        </Link> */}
+      </Stack>
+
+      <Footer mt={{ base: 12, md: 16 }} mb={{ base: 8, md: 0 }} />
+    </QuizLayout>
   );
 };
 

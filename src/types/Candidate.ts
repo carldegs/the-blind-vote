@@ -15,4 +15,5 @@ export interface Candidate {
     }
   >;
   controversies: string[];
+  url: string;
 }

@@ -7,28 +7,37 @@ import {
   Button,
   ButtonProps,
   FlexProps,
+  TextProps,
 } from '@chakra-ui/react';
 import { ArrowRight } from 'phosphor-react';
+import { forwardRef } from 'react';
 
 import Layout from './Layout';
 
-export const QuizLayoutHeader: React.FC<FlexProps> = ({
-  children,
-  ...flexProps
-}) => (
+const _QuizLayoutHeader: React.ForwardRefRenderFunction<any, FlexProps> = (
+  { children, ...flexProps },
+  ref
+) => (
   <Flex
     w="full"
-    minH={{ base: '250px', md: '300px' }}
-    bg="gray.200"
+    minH={{ base: '224px', md: '300px' }}
+    h="fit-content"
+    bg="purple.400"
     align="center"
     justify="center"
     py={6}
     boxShadow="md"
+    textColor="purple.900"
+    ref={ref}
     {...flexProps}
   >
-    <Container maxW="container.lg">{children}</Container>
+    <Container maxW="container.lg" my={4}>
+      {children}
+    </Container>
   </Flex>
 );
+
+export const QuizLayoutHeader = forwardRef(_QuizLayoutHeader);
 
 export const QuizLayoutTitle: React.FC = ({ children }) => (
   <Heading
@@ -40,30 +49,47 @@ export const QuizLayoutTitle: React.FC = ({ children }) => (
   </Heading>
 );
 
-export const QuizLayoutSubtitle: React.FC = ({ children }) => (
-  <Text fontWeight="bold" letterSpacing="widest" textAlign="center">
+export const QuizLayoutSubtitle: React.FC<TextProps> = ({
+  children,
+  ...textProps
+}) => (
+  <Text
+    fontWeight="bold"
+    letterSpacing="widest"
+    textAlign="center"
+    fontSize={{ base: 'sm', md: 'md' }}
+    {...textProps}
+  >
     {children}
   </Text>
 );
 
-export const QuizLayoutDescription: React.FC = ({ children }) => (
-  <Flex align="center" justify="center" textAlign="center">
+export const QuizLayoutDescription: React.FC<FlexProps> = ({
+  children,
+  ...flexProps
+}) => (
+  <Flex
+    align="center"
+    justify="center"
+    textAlign="center"
+    display="inline-block"
+    w="full"
+    {...flexProps}
+  >
     {children}
   </Flex>
 );
 
-export const QuizLayoutNextButton: React.FC<ButtonProps> = ({
-  children,
-  ...buttonProps
-}) => (
-  <Flex align="center" justify="center">
+export const QuizLayoutNextButton: React.FC<
+  ButtonProps & { flexProps?: FlexProps }
+> = ({ children, flexProps, ...buttonProps }) => (
+  <Flex align="center" justify="center" {...flexProps}>
     <Button
       isFullWidth
       mt={4}
-      colorScheme="blue"
+      colorScheme={buttonProps.isDisabled ? 'purple' : 'green'}
       rightIcon={<ArrowRight />}
       isDisabled={buttonProps.isDisabled}
-      opacity={buttonProps.disabled ? `0 !important` : 1}
       maxW="400px"
       {...buttonProps}
     >
@@ -76,7 +102,7 @@ export const QuizLayoutContent: React.FC<ContainerProps> = ({
   children,
   ...otherProps
 }) => (
-  <Flex w="full" flexGrow={1} align="center" {...otherProps} pb={4}>
+  <Flex w="full" flexGrow={1} align="center" pb={4} {...otherProps}>
     {children}
   </Flex>
 );
@@ -85,7 +111,11 @@ const QuizLayout: React.FC<{ center?: boolean }> = ({
   center = true,
   children,
 }) => {
-  return <Layout center={center}>{children}</Layout>;
+  return (
+    <Layout center={center} overflow="auto">
+      {children}
+    </Layout>
+  );
 };
 
 export default QuizLayout;

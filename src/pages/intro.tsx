@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Spacer } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 
 import QuizLayout, {
@@ -15,11 +15,23 @@ const Intro: React.FC = () => {
     <QuizLayout>
       <QuizLayoutHeader>
         <QuizLayoutTitle>How it works</QuizLayoutTitle>
-        <QuizLayoutDescription>
-          Add instructions and disclaimer here. Lorem ipsum dolor sit amet,
-          consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-          labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-          in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        <QuizLayoutDescription fontSize={{ base: 'sm', md: 'lg' }}>
+          We took the names off of the 2022 Presidential Candidates and only
+          left short excerpts of their credentials and their statements on
+          relevant issues in the Philippines. Simply choose the statement or
+          view that best aligns with your views and beliefs, and one point will
+          be given to the Candidate whose statement you just chose. At the end
+          of the quiz, we&apos;ll give you a breakdown on which Candidate got
+          the most points based on your choices.
+        </QuizLayoutDescription>
+        <Spacer h={8} />
+        <QuizLayoutDescription fontSize={{ base: 'sm', md: 'lg' }}>
+          <b>Disclaimer: </b>
+          This short activity is only one of many ways to help you in the
+          upcoming 2022 Elections. This test is merely a guide, and we certainly
+          do not force any Candidate upon you. As such, we still highly
+          encourage you to do your own reading and research on the Presidential
+          candidates to better help form your decision.
         </QuizLayoutDescription>
       </QuizLayoutHeader>
       <QuizLayoutContent alignItems="center" justifyContent="center">
@@ -28,6 +40,7 @@ const Intro: React.FC = () => {
             router.push(ROUTES.profile);
           }}
           size="lg"
+          colorScheme="green"
         >
           START THE QUIZ
         </Button>

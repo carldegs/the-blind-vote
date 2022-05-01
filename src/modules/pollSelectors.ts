@@ -40,7 +40,7 @@ export const selectValidControversiesPage = createSelector(
 export const selectValidResultsPage = createSelector(
   [selectValidControversiesPage, selectControversies],
   (isValidControversiesPage, controversies) =>
-    isValidControversiesPage && !!controversies.length
+    isValidControversiesPage && controversies.length <= 3
 );
 
 // results
@@ -67,7 +67,7 @@ export const selectResults = createSelector(
       !profile ||
       !selectedIssues ||
       !Object.values(stands).some((stand) => !!stand) ||
-      !controversies.length
+      controversies.length > 3
     ) {
       return Object.entries(results).map(([id, values]) => ({ id, ...values }));
     }

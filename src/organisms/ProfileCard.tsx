@@ -30,7 +30,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         md: '350px',
       }}
       minW="350px"
-      h="full"
+      h={{ base: 'max-content', md: 'full' }}
       maxH={{
         base: '500px',
         md: '500px',
