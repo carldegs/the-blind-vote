@@ -43,7 +43,7 @@ const Results: React.FC = () => {
 
   useEffect(() => {
     if (!isValid) {
-      // router.push(ROUTES.home);
+      router.push(ROUTES.home);
     }
   }, [isValid, router]);
 
