@@ -5,6 +5,7 @@ import { CANDIDATES } from '../constants';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import QuizLayout, {
   QuizLayoutContent,
+  QuizLayoutDescription,
   QuizLayoutHeader,
   QuizLayoutNextButton,
   QuizLayoutSubtitle,
@@ -39,6 +40,9 @@ const Profile: React.FC = () => {
       <QuizLayoutHeader>
         <QuizLayoutSubtitle>PART 1</QuizLayoutSubtitle>
         <QuizLayoutTitle>Personal and Government Profile</QuizLayoutTitle>
+        <QuizLayoutDescription>
+          Pick the Profile that you think the next President should have.
+        </QuizLayoutDescription>
         <QuizLayoutNextButton
           isDisabled={!selectedProfile}
           onClick={() => {

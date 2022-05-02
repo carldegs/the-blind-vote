@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
+        {/* eslint-disable-next-line @next/next/no-title-in-document-head */}
         <title>The Blind Test: The Undecided Voters&apos; Guide</title>
 
         <script

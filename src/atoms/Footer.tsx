@@ -45,7 +45,7 @@ const Footer: React.FC<FlexProps> = (flexProps) => {
 
       <Link
         isExternal
-        href="https://www.linkedin.com/in/carl-justin-de-guia-b40a1b97/"
+        href="https://www.carldegs.com/"
         onClick={() => {
           sendEvent(GTAG_EVENTS.openLinkedIn);
         }}
