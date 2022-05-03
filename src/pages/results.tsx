@@ -124,8 +124,8 @@ const Results: React.FC = () => {
                 <Flex
                   bg="black"
                   color="white"
-                  h="34px"
-                  w="30px"
+                  w="34px"
+                  h="30px"
                   borderRadius="50%"
                   textAlign="center"
                   align="center"
@@ -201,7 +201,7 @@ const Results: React.FC = () => {
         <Divider my={8} />
 
         <Heading fontSize="3xl">Why them?</Heading>
-        <Text fontSize="lg">{`YOUR TOP CANIDADATE${
+        <Text fontSize="lg" textAlign="center">{`YOUR TOP CANDIDATE${
           topCandidates.length > 1 ? 'S' : ''
         } GOT ${topScore}PT${topScore > 1 ? 'S' : ''}.`}</Text>
 
