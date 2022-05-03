@@ -124,8 +124,8 @@ const Results: React.FC = () => {
                 <Flex
                   bg="black"
                   color="white"
-                  h="34px"
-                  w="30px"
+                  w="34px"
+                  h="30px"
                   borderRadius="50%"
                   textAlign="center"
                   align="center"
